@@ -11,9 +11,8 @@ openai_api_key = os.environ.get('OPENAI_API_KEY')
 
 def get_product_ranking_gategories(params):
     categories = [
-        {"id": "1", "name": "ヘッドホン"},
-        {"id": "2", "name": "USBメモリ"},
-        {"id": "3", "name": "スピーカー"},
+        {"id": "1", "name": "USBメモリ"},
+        {"id": "2", "name": "ハードディスク"},
     ]
     return json.dumps(categories, ensure_ascii=False)
 
