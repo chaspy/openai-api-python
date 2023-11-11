@@ -86,18 +86,18 @@ def main():
 
         while True:
             response = ask_gpt3(conversation)
-            message = response.choices[0]["message"]
-            if message.get("function_call"):
-                f_call = message.get("function_call")
-                function_name = f_call["name"]
-                args = json.loads(f_call["arguments"])
+            message = response.choices[0].message
+            if message.function_call:
+                f_call = message.function_call
+                function_name = f_call.name
+                args = json.loads(f_call.arguments)
                 function_response = globals()[function_name](args)
                 print(function_response)  # debug
                 conversation.append({"role": "function", "name": function_name, "content": function_response,
                                      })
 
             else:
-                resMessage = message["content"].strip()
+                resMessage = message.content.strip()
                 conversation.append(
                     {"role": "assistant", "content": resMessage})
 
