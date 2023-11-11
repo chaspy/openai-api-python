@@ -64,8 +64,10 @@ functions = [
     }
 ]
 
+# 上で定義してあるグローバル変数の functions と一緒に API を実行する
 
-def ask_gpt3(convesation):
+
+def ask_gpt3_with_function(convesation):
     response = client.chat.completions.create(model="gpt-3.5-turbo-0613",
                                               messages=convesation,
                                               functions=functions,
@@ -82,17 +84,20 @@ def main():
         if user_input == 'exit':
             break
 
+        # ユーザがインプットしてきた値をプロンプトに追記する
         conversation.append({"role": "user", "content": user_input})
 
         while True:
-            response = ask_gpt3(conversation)
+            response = ask_gpt3_with_function(conversation)
             message = response.choices[0].message
             if message.function_call:
                 f_call = message.function_call
                 function_name = f_call.name
                 args = json.loads(f_call.arguments)
                 function_response = globals()[function_name](args)
+                print("---dubug: function_response---")
                 print(function_response)  # debug
+                # 選ばれた function をプロンプトに追記して再度問い合わせる
                 conversation.append({"role": "function", "name": function_name, "content": function_response,
                                      })
 
