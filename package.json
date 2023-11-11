@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "openai": "3.3.0"
+    "openai": "^4.17.4"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   }
 }
