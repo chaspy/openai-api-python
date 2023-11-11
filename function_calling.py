@@ -1,12 +1,11 @@
 # ref: https://zenn.dev/75py/articles/b3fa86255f7e28
+import os
 import json
 import openai
 from openai import OpenAI
 
 client = OpenAI()
-import os
 
-raise Exception("The 'openai.organization' option isn't read in the client API. You will need to pass it when you instantiate the client, e.g. 'OpenAI(organization="org-WgG1ZDLxZhMSM8rFfyQfalsW")'")
 openai_api_key = os.environ.get('OPENAI_API_KEY')
 
 
@@ -68,9 +67,9 @@ functions = [
 
 def ask_gpt3(convesation):
     response = client.chat.completions.create(model="gpt-3.5-turbo-0613",
-    messages=convesation,
-    functions=functions,
-    function_call="auto")
+                                              messages=convesation,
+                                              functions=functions,
+                                              function_call="auto")
     print(response)  # debug
     return response
 
